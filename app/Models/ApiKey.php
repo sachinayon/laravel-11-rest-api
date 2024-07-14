@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Book extends Model
+class ApiKey extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -16,8 +16,9 @@ class Book extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'title',
-        'author',
-        'description',
+        'key',
+        'name',
+        'expires_at',
+        'is_active'
     ];
 }
