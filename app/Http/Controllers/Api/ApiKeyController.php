@@ -46,6 +46,12 @@ class ApiKeyController extends Controller
             return response()->json(['message' => 'API Key not found'], 404);
         }
 
+        // Deactivate the API key if it's active
+        if ($apiKey->is_active) {
+            $apiKey->is_active = false;
+            $apiKey->save();
+        }
+
         $apiKey->delete();
         return response()->json(['message' => 'API Key deleted successfully']);
     }
