@@ -10,4 +10,5 @@ Route::get('/user', function (Request $request) {
 
 Route::middleware(['isApiKeyValidated'])->group(function () {
     Route::apiResource('books', BookController::class);
+    Route::post('books/{id}/restore', [BookController::class, 'restore']);
 });

@@ -76,4 +76,18 @@ class BookController extends Controller
         $book->delete();
         return response()->json(['message' => 'Book deleted successfully']);
     }
+
+    /**
+     * Restore the soft deleted record.
+     */
+    public function restore($id)
+    {
+        $book = Book::withTrashed()->find($id);
+        if (!$book) {
+            return response()->json(['message' => 'Book not found'], 404);
+        }
+
+        $book->restore();
+        return response()->json(['message' => 'Book restored successfully']);
+    }
 }
