@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\ApiKey;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,6 +19,12 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
+        ]);
+
+        // Create an initial API key for the user
+        ApiKey::create([
+            'key' => 'lIwhMvlohsg4pSevgNFsLeYvflD0h1Dc',
+            'name' => 'Initial API Key',
         ]);
     }
 }

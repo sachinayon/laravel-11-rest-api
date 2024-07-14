@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use App\Models\ApiKey;
 
 class ApiKeyController extends Controller
@@ -28,7 +27,7 @@ class ApiKeyController extends Controller
         ]);
 
         $apiKey = ApiKey::create([
-            'key' => Str::random(32),
+            'key' => $this->generateApiKey(),
             'name' => $request->name,
             'expires_at' => $request->expires_at,
         ]);
@@ -87,4 +86,22 @@ class ApiKeyController extends Controller
 
         return response()->json(['message' => 'API Key deactivated successfully']);
     }
+
+    /**
+     * Generate a unique API key.
+     */
+    private function generateApiKey(): string
+    {
+        do {
+            // Step 1: Generate random bytes
+            $randomBytes = random_bytes(16);
+    
+            // Step 2: Convert to hexadecimal (32-character key)
+            $apiKey = bin2hex($randomBytes);
+    
+        } while (ApiKey::where('key', $apiKey)->exists()); // Step 3: Check uniqueness
+    
+        return $apiKey;
+    }
+    
 }
